@@ -1,8 +1,12 @@
+//handle data bse
+// update order logic
+// information and email on ordering
+
+
+
 "use client"
 import React, { useEffect, useState } from 'react';
-import { FaShoelace } from "react-icons/fa6";
-import { MdOutlineShoppingCart } from "react-icons/md";
-import { FaRegCircleUser } from "react-icons/fa6";
+import Navbar from './navbar/page';
 
 const App = () => {
   const images = [
@@ -33,19 +37,10 @@ const App = () => {
     <div className="bg-[#fef5e4] font-sans text-center">
       {/* Header */}
       <header className="py-6 px-2">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center justify-center">
-            <FaShoelace className="text-4xl text-black" />
-            <h1 className="text-4xl text-green-800 font-serif font-bold ml-2">StrideCraft</h1>
-          </div>
-          <div className="flex items-center justify-center">
-            <FaRegCircleUser className="text-3xl text-black" />
-            <MdOutlineShoppingCart className="text-3xl ml-4 text-black" />
-          </div>
-        </div>
+        <Navbar />
 
         {/* Slideshow */}
-        <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-lg shadow-lg mt-6">
+        <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-lg shadow-lg -mt-6">
           <div className="relative h-64 sm:h-96">
             <div
               className="flex transition-transform duration-500 ease-in-out"
@@ -84,12 +79,12 @@ const App = () => {
         <h2 className="text-3xl font-bold font-serif mb-6">Categories</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
           {[
-            { name: 'Crocs', img: '/image/crocsdisplay.png' },
-            { name: 'Puma', img: '/image/pumashoes.png' },
-            { name: 'Nike', img: '/image/nikeshoes.png' },
-            { name: 'Adidas', img: '/image/adidasshoes.png' },
+            { name: 'crocs', img: '/image/crocsdisplay.png' },
+            { name: 'puma', img: '/image/pumashoes.png' },
+            { name: 'nike', img: '/image/nikeshoes.png' },
+            { name: 'adidas', img: '/image/adidasshoes.png' },
           ].map((item) => (
-            <button onClick={()=>{window.location.assign(`/${item.name}`)}} key={item.name} className="bg-white  p-2 border-2 border-black rounded-xl shadow-2xl">
+            <button onClick={()=>{window.location.assign(`/products?name=${item.name}`)}} key={item.name} className="bg-white  p-2 border-2 border-black rounded-xl shadow-2xl">
               <img src={item.img} alt={item.name} className="w-30 h-30 mx-auto" />
               <p className="text-black text-2xl font-sans font-bold">{item.name}</p>
             </button>
