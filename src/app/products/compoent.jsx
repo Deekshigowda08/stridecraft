@@ -39,9 +39,12 @@ const ProductPage = () => {
 
   if (!products.length) {
     return (
-      <div className="bg-[#ffeed1] min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-bold text-gray-800">Loading...</h1>
-      </div>
+     <div className="bg-[#fef5e4] min-h-screen flex items-center justify-center">
+  <div className="flex flex-col items-center space-y-4">
+    <div className="w-16 h-16 border-4 border-green-800 border-dashed rounded-full animate-spin"></div>
+    <p className="text-xl font-semibold text-green-800">Loading...</p>
+  </div>
+</div>
     );
     
   }

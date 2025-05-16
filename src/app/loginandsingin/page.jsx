@@ -21,11 +21,21 @@ export default function AuthPage() {
 
     try {
       if (isLogin) {
-        await loginUser(email, password);
-        alert("Login successful!");
+        let data=await loginUser(email, password);
+        if (!data) {
+          alert("Invalid email or password");
+          setIsLogin(false);
+          return;
+        }
+        window.location.assign("http://localhost:3000/profile");
       } else {
-        await signUpUser(email, password);
-        alert("Signup successful!");
+        let data=await signUpUser(email, password);
+        if (!data) {
+          alert("Email already exists");
+          setIsLogin(true);
+          return;
+        }
+        window.location.assign("http://localhost:3000/profile");
       }
 
       // You can redirect here if needed

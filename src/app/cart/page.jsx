@@ -1,30 +1,36 @@
 "use client";
-import React, { useState } from "react";
-import { FaShoelace, FaRegCircleUser } from "react-icons/fa6";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import React, { useEffect, useState } from "react";
+import { db } from "../api/auth";
+import { doc, getDoc } from "firebase/firestore";
 import Navbar from "../navbar/page";
 
 export default function CartPage() {
-    const [cart, setCart] = useState([
-        {
-            id: 1,
-            image: "https://th.bing.com/th/id/OIP.ZxQM47KwVgtd2WpzealytQHaHa?rs=1&pid=ImgDetMain",
-            name: "Running Shoes",
-            quantity: 1,
-            size: "M",
-            price: 120,
-        },
-        {
-            id: 2,
-            image: "https://th.bing.com/th/id/OIP.ZxQM47KwVgtd2WpzealytQHaHa?rs=1&pid=ImgDetMain",
-            name: "Sneaker Socks",
-            quantity: 2,
-            size: "L",
-            price: 20,
-        },
-    ]);
-
+    const [cart, setCart] = useState([]);
     const [address, setAddress] = useState("");
+
+    useEffect(() => {
+    const fetchUserData = async () => {
+    const userId = window.localStorage.getItem("useruid");
+    if (!userId) {
+      window.location.assign("http://localhost:3000/loginandsingin");
+    } else {
+      try {
+        const userDocRef = doc(db, "users", userId); 
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          setCart(userDocSnap.data().cart || []);
+          setAddress(userDocSnap.data().address || "");
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+  };
+        fetchUserData();
+    }, []);
 
     const handleQuantity = (id, delta) => {
         setCart((prev) =>
@@ -42,6 +48,7 @@ export default function CartPage() {
 
     const handlePlaceOrder = () => {
         if (!address) return alert("Please enter your address");
+        if (cart.length === 0) return alert("Your cart is empty");
         alert("Order placed successfully");
         // You can POST cart and address to your backend here
     };

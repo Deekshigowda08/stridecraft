@@ -50,7 +50,7 @@ if (!userDoc.exists()) {
         console.log("User registered and document created!");
         return user;
     } catch (error) {
-        console.error("Signup error:", error.message);
+        return false;
     }
 };
 
@@ -63,7 +63,7 @@ export const loginUser = async (email, password) => {
         window.localStorage.setItem("isLoggedIn", true);
         return userCredential.user;
     } catch (error) {
-        console.error("Login error:", error.message);
+        return false;
     }
 };
 

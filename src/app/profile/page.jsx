@@ -2,37 +2,38 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import Navbar from "../navbar/page";
+import { db } from "../api/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function ProfilePage() {
   const [user, setUser] = useState(null);
   const [orders, setorders] = useState([])
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const userId = window.localStorage.getItem("useruid");
-      if (!userId) {
-        window.location.assign("http://localhost:3000//loginandsingin") ;
-      }
-      else {
-        try {
-          const userDocRef = doc(db, "users", uid);
-          const userDocSnap = await getDoc(userDocRef);
+ useEffect(() => {
+  const fetchUserData = async () => {
+    const userId = window.localStorage.getItem("useruid");
+    if (!userId) {
+      window.location.assign("http://localhost:3000/loginandsingin");
+    } else {
+      try {
+        const userDocRef = doc(db, "users", userId); 
+        const userDocSnap = await getDoc(userDocRef);
 
-          if (userDocSnap.exists()) {
-            setUser(userDocSnap.data());
-            console.log("userDocSnap.data()", userDocSnap.data());
-            
-            setorders(userDocSnap.data().orders);
-          } else {
-            console.log("No such document!");
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
+        if (userDocSnap.exists()) {
+          setUser(userDocSnap.data());
+          setorders(userDocSnap.data().orders || []);
+        } else {
+          console.log("No such document!");
         }
-      };
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+  };
 
-      fetchUserData();
-    }}, []);
+  fetchUserData(); 
+}, []);
+
     const [isEditing, setIsEditing] = useState(false);
 
     const handleChange = (e) => {
@@ -42,6 +43,8 @@ export default function ProfilePage() {
 
     const handleSubmit = async () => {
       try {
+        console.log(user);
+        
         const response = await fetch("/api/updateProfile", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -64,8 +67,12 @@ export default function ProfilePage() {
 if (!user) {
   return(
     <div className="bg-[#fef5e4] min-h-screen flex items-center justify-center">
-      <h1 className="text-2xl font-bold text-gray-800">Loading...</h1>
-    </div>
+  <div className="flex flex-col items-center space-y-4">
+    <div className="w-16 h-16 border-4 border-green-800 border-dashed rounded-full animate-spin"></div>
+    <p className="text-xl font-semibold text-green-800">Loading...</p>
+  </div>
+</div>
+
   )
   } else {
     return (
