@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { FaShoelace, FaRegCircleUser } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
