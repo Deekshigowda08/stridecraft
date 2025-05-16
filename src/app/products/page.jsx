@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "@/app/api/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useSearchParams } from 'next/navigation';
-
+import { Suspense } from 'react';
 
 const ProductPage = () => {
   const searchParams = useSearchParams();
@@ -54,6 +54,7 @@ const ProductPage = () => {
   }
   else {
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="bg-[#ffeed1] min-h-screen">
       {/* Fixed Navbar */}
       <Navbar/>
@@ -98,6 +99,7 @@ const ProductPage = () => {
         </div>
       </div>
     </div>
+    </Suspense>
   );
 }
 };
