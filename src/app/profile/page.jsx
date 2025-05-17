@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const fetchUserData = async () => {
     const userId = window.localStorage.getItem("useruid");
     if (!userId) {
-      window.location.assign("http://localhost:3000/loginandsingin");
+      window.location.assign("https://stridecraft.vercel.app/loginandsingin");
     } else {
       try {
         const userDocRef = doc(db, "users", userId); 

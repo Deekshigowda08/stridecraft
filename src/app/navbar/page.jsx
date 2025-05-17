@@ -14,8 +14,8 @@ export default function Navbar() {
                         </h1>
                     </div>
                     <div className="flex items-center justify-center mt-2 sm:mt-0">
-                        <button onClick={()=>{window.location.assign("http://localhost:3000/profile")}}><FaRegCircleUser className="text-3xl text-black" /></button>
-                        <button onClick={()=>{window.location.assign("http://localhost:3000/cart")}}><MdOutlineShoppingCart className="text-3xl ml-4 text-black" /></button>
+                        <button onClick={()=>{window.location.assign("https://stridecraft.vercel.app/profile")}}><FaRegCircleUser className="text-3xl text-black" /></button>
+                        <button onClick={()=>{window.location.assign("https://stridecraft.vercel.app/cart")}}><MdOutlineShoppingCart className="text-3xl ml-4 text-black" /></button>
                     </div>
                 </div>
             </div>
