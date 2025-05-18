@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FcGoogle } from "react-icons/fc";
 import Navbar from "../navbar/page";
+  import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { signUpUser, loginUser, signInWithGoogle} from "../api/auth" 
 
@@ -15,7 +17,7 @@ export default function AuthPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      alert("Please fill in both email and password.");
+    toast.info("Please fill in both email and password.");
       return;
     }
 
@@ -23,34 +25,34 @@ export default function AuthPage() {
       if (isLogin) {
         let data=await loginUser(email, password);
         if (!data) {
-          alert("Invalid email or password");
+          toast.error("Invalid email or password");
           setIsLogin(false);
           return;
         }
-        window.location.assign("http://localhost:3000/profile");
+        window.location.assign("https://stridecraft.vercel.app/profile");
       } else {
         let data=await signUpUser(email, password);
         if (!data) {
-          alert("Email already exists");
+          toast.error("Email already exists");
           setIsLogin(true);
           return;
         }
-        window.location.assign("http://localhost:3000/profile");
+        window.location.assign("https://stridecraft.vercel.app/profile");
       }
 
       // You can redirect here if needed
     } catch (error) {
-      alert("Authentication failed: " + error.message);
+      toast.error("Authentication failed: " + error.message);
     }
   };
 
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      alert("Google sign-in successful!");
+      toast.done("Google sign-in successful!");
       // Redirect or navigate after login
     } catch (error) {
-      alert("Google sign-in failed: " + error.message);
+      toast.done("Google sign-in failed: " + error.message);
     }
   };
 
@@ -58,6 +60,7 @@ export default function AuthPage() {
     <div className="min-h-screen bg-[#fef5e4]">
       {/* Navbar */}
       <Navbar />
+      <ToastContainer />
 
       {/* Auth Form */}
       <div className="flex items-center justify-center py-12">

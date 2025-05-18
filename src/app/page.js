@@ -36,7 +36,7 @@ const App = () => {
   return (
     <div className="bg-[#fef5e4] font-sans text-center">
       {/* Header */}
-      <header className="py-6 px-2">
+      <header className="py-6 ">
         <Navbar />
 
         {/* Slideshow */}
